@@ -1,11 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  AdsCarousel1,
-  AdsCarousel2,
-  AdsCarousel3,
-} from "../../../public/assets/images";
+import { AdsCarousel1, AdsCarousel2 } from "../../../public/assets/images";
 
 const banners = [AdsCarousel1, AdsCarousel2];
 

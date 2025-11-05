@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
 import "./globals.css";
-import { Mulish, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Script from "next/script";
 
 const poppins = Poppins({

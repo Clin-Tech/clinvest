@@ -1,7 +1,7 @@
 import SelectionTab from "@/customer/components/SelectionTab";
 import Layout from "@/layout";
 import AnimatedTextLine from "@/shared/AnimatedTextLine";
-import { HomePageImg, HomePageImg2 } from "../../public/assets/images/index";
+import { HomePageImg2 } from "../../public/assets/images/index";
 import Image from "next/image";
 import React from "react";
 import AdsCarousel from "@/customer/components/AdsCarousel";

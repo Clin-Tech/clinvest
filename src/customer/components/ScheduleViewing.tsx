@@ -53,8 +53,12 @@ const ScheduleViewing: React.FC = () => {
       await new Promise((res) => setTimeout(res, 900));
       setSuccess("Request sent — the agent will contact you shortly.");
       setForm(initialState);
-    } catch (err: any) {
-      setError(err || "Failed to send request. Try again.");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Failed to send request. Try again.";
+      setError(message);
     } finally {
       setSubmitting(false);
     }
@@ -64,7 +68,8 @@ const ScheduleViewing: React.FC = () => {
     <div className="rounded-xl border bg-white p-4 shadow-sm">
       <h3 className="text-lg font-semibold">Schedule a Viewing</h3>
       <p className="text-sm text-gray-500 mb-3">
-        Tell us when you'd like to see the property and we'll arrange the visit.
+        Tell us when you&apos;d like to see the property and we&apos;ll arrange
+        the visit.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-3">

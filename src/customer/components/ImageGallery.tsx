@@ -53,10 +53,14 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ image }) => {
                 key={i}
                 className="h-[250px] flex-1 rounded-xl overflow-hidden"
               >
-                <img
+                <Image
                   src={img}
                   alt={`Gallery ${i + 1}`}
                   className="w-full h-full object-cover"
+                  width={1740}
+                  height={250}
+                  loading="lazy"
+                  unoptimized
                 />
               </div>
             )
