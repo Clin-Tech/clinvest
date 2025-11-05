@@ -1,4 +1,3 @@
-// app/product/[id]/page.tsx  (SERVER)
 import type { Metadata } from "next";
 import { allProperties } from "@/customer/utils/data";
 import type { Property } from "@/types/property";

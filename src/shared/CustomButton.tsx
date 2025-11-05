@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 type CustomButtonProps = {
   children?: string | React.ReactNode;
@@ -20,13 +21,16 @@ const CustomButton = ({
   whileTap = { scale: 0.95 },
 }: CustomButtonProps) => {
   return (
-    <button
+    <motion.button
       key={btnId}
       onClick={handleBtnClick}
+      whileHover={whileHover}
+      whileTap={whileTap}
+      type="button"
       className={` ${btnClassName} text-[#090040] text-md font-medium bg-white px-3 py-2 rounded-lg shadow-md hover:scale-105 transition-all duration-300`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 

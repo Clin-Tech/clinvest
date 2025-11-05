@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 interface ImageGalleryProps {
@@ -31,10 +32,15 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ image }) => {
   return (
     <div className="flex flex-col lg:flex-row gap-2 overflow-x-auto">
       <div className="w-full lg:w-2/3 h-[450px] rounded-xl overflow-hidden">
-        <img
+        <Image
           src={allImages[0]}
           alt="Main"
           className="w-full h-full object-cover"
+          width={1740}
+          height={450}
+          priority
+          loading="eager"
+          unoptimized
         />
       </div>
 

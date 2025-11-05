@@ -1,4 +1,3 @@
-// app/product/[id]/ClientPage.tsx
 "use client";
 
 import ImageGallery from "@/customer/components/ImageGallery";

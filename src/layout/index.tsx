@@ -2,7 +2,11 @@ import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ children }: any) => {
+interface LayoutProps {
+  children?: React.ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="w-full flex flex-col">
       <Header />
