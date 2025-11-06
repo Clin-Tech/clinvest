@@ -54,11 +54,11 @@ const ScheduleViewing: React.FC = () => {
       setSuccess("Request sent — the agent will contact you shortly.");
       setForm(initialState);
     } catch (err: unknown) {
-      const message =
+      setError(
         err instanceof Error
           ? err.message
-          : "Failed to send request. Try again.";
-      setError(message);
+          : "Failed to send request. Try again."
+      );
     } finally {
       setSubmitting(false);
     }

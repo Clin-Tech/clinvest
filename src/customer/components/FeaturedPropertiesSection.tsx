@@ -10,11 +10,9 @@ const TABS: Array<Property["type"]> = ["Rent", "Sale", "Shortlet", "Land"];
 export default function FeaturedPropertiesSection() {
   const [activeTab, setActiveTab] = useState<Property["type"]>("Rent");
 
-  // const filtered = allProperties.filter(
-  //   (p: any): p is Property => p && p.type === activeTab
-  // ) as Property[];
-  const filtered = allProperties.filter((p) => p.type === activeTab);
-
+  const filtered = (allProperties as readonly Property[]).filter(
+    (p): p is Property => p && p.type === activeTab
+  );
   return (
     <section className="w-full px-6 md:px-20 py-10 bg-[#090040] text-white">
       <h2 className="text-lg font-medium mb-1">ClinVest Picks</h2>

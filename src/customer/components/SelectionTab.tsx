@@ -19,7 +19,7 @@ const TABS = [
   { id: "Land", label: "Land" },
 ] as const;
 
-const SelectionTab = () => {
+export default function SelectionTab() {
   const router = useRouter();
 
   const [activeTab, setActiveTab] =
@@ -82,23 +82,16 @@ const SelectionTab = () => {
     },
   ];
 
-  function buildQuery() {
-    const params = new URLSearchParams();
-
-    params.set("category", activeTab);
-
-    (Object.keys(filters) as Array<keyof Filters>).forEach((k) => {
-      const v = filters[k];
-      if (v) params.set(k, v);
-    });
-
-    return params.toString();
-  }
-
-  function handleSearch() {
-    const qs = buildQuery();
-    router.push(`/search?${qs}`);
-  }
+  const handleSearch = () => {
+    const q = new URLSearchParams();
+    q.set("type", activeTab);
+    (Object.entries(filters) as Array<[keyof Filters, string]>).forEach(
+      ([k, v]) => {
+        if (v) q.set(k, v);
+      }
+    );
+    router.push(`/search?${q.toString()}`);
+  };
 
   return (
     <div className="w-[80%] flex flex-col items-center pt-10">
@@ -107,9 +100,7 @@ const SelectionTab = () => {
           <CustomButton
             key={tab.id}
             handleBtnClick={() => setActiveTab(tab.id)}
-            btnClassName={`!py-3 !px-4 !w-[24%] !shadow-none ${
-              activeTab === tab.id ? "!bg-[#090040] text-white" : "bg-white"
-            }`}
+            btnClassName={`!py-3 !px-4 !w-[24%] !shadow-none ${activeTab === tab.id ? "!bg-[#090040] text-white" : "bg-white"}`}
           >
             {tab.label}
           </CustomButton>
@@ -152,6 +143,4 @@ const SelectionTab = () => {
       </div>
     </div>
   );
-};
-
-export default SelectionTab;
+}
