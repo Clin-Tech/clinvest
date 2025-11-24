@@ -100,41 +100,48 @@ export default function SelectionTab() {
           <CustomButton
             key={tab.id}
             handleBtnClick={() => setActiveTab(tab.id)}
-            btnClassName={`!py-3 !px-4 !w-[24%] !shadow-none ${activeTab === tab.id ? "!bg-[#090040] text-white" : "bg-white"}`}
+            btnClassName={`!py-2 md:!py-3 !px-1 md:!px-4 !w-[24%] !shadow-none ${activeTab === tab.id ? "!bg-[#090040] text-white !text-sm md:!text-md " : "bg-white"}`}
           >
             {tab.label}
           </CustomButton>
         ))}
       </div>
 
-      <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 p-4 bg-white rounded-b-lg rounded-t-none md:rounded-3xl shadow-md gap-x-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4 p-4 bg-white rounded-b-lg md:rounded-3xl shadow-md">
         {filterControls.map((fc) => (
-          <div key={fc.id} className="w-[130px] sm:w-[200px] md:w-[160px] py-3">
+          <div key={fc.id} className="min-w-0 col-span-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               {fc.label}
             </label>
-            <select
-              className="w-full text-xs sm:text-sm text-grey p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A02AD7] focus:border-transparent"
-              value={filters[fc.id]}
-              onChange={(e) =>
-                setFilters((f) => ({ ...f, [fc.id]: e.target.value }))
-              }
-              disabled={fc.id === "maxPrice" && !filters.minPrice}
-            >
-              <option value="">{fc.placeholder}</option>
-              {fc.options.map((o) => (
-                <option key={o} value={o}>
-                  {o}
-                </option>
-              ))}
-            </select>
+
+            <div className="relative">
+              <select
+                className="block w-full min-w-0 text-xs sm:text-sm text-gray-600 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A02AD7] focus:border-[#A02AD7] appearance-none leading-5 pr-9"
+                value={filters[fc.id]}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, [fc.id]: e.target.value }))
+                }
+                disabled={fc.id === "maxPrice" && !filters.minPrice}
+              >
+                <option value="">{fc.placeholder}</option>
+                {fc.options.map((o) => (
+                  <option key={o} value={o}>
+                    {o}
+                  </option>
+                ))}
+              </select>
+
+              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500 text-sm">
+                ▾
+              </span>
+            </div>
           </div>
         ))}
 
-        <div className="flex items-center justify-center">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-1 flex items-end">
           <CustomButton
             handleBtnClick={handleSearch}
-            btnClassName="!bg-[#A02AD7] !text-white !px-4 !py-2 !rounded-lg !shadow-md hover:!scale-105 transition-all duration-300 flex items-center gap-2"
+            btnClassName="!w-full sm:!w-auto !bg-[#A02AD7] !text-white !px-4 !py-2 !rounded-lg !shadow-md hover:!scale-105 transition-all duration-300 flex items-center justify-center gap-2"
           >
             <FaSearch className="text-white" size={12} />
             Search
