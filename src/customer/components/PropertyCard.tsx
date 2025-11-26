@@ -4,12 +4,14 @@ import { FaBed, FaBath, FaToilet } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { Property } from "@/types/property";
+import { useSaved } from "@/hooks/useSaved";
 
 const PropertyCard = ({ property }: { property: Property }) => {
   if (!property) return null;
   const { title, location, price, bedrooms, bathrooms, toilets, id, image } =
     property;
 
+  const { isSaved, toggle } = useSaved();
   return (
     <Link href={`/property/${id}`}>
       <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer">
@@ -22,9 +24,21 @@ const PropertyCard = ({ property }: { property: Property }) => {
             className="object-cover w-full h-full"
             loading="lazy"
           />
-          <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center cursor-pointer text-gray-700 text-sm">
+          {/* <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center cursor-pointer text-gray-700 text-sm">
             ♡
-          </div>
+          </div> */}
+          <button
+            aria-label={isSaved(id) ? "Remove from saved" : "Save listing"}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggle(id);
+            }}
+            className={`absolute top-2 right-2 w-8 h-8 rounded-full flex items-center justify-center
+              ${isSaved(id) ? "bg-pink-600 text-white" : "bg-white text-gray-700"}`}
+          >
+            {isSaved(id) ? "❤" : "♡"}
+          </button>
         </div>
         <div className="p-4 space-y-2">
           <h3 className="text-sm font-semibold leading-tight text-black">

@@ -12,39 +12,44 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { id } = await params;
-
-  // allProperties MUST be typed: `as const satisfies ReadonlyArray<Property>`
-  const prop = allProperties.find((p) => String(p.id) === String(id)) as
-    | Property
-    | undefined;
-
-  if (!prop) return { title: "Property not found – ClinTech Estate" };
-
-  const title = `${prop.title} – ClinTech Estate`;
-  const description =
-    prop.description ?? `View ${prop.title} in ${prop.location}.`;
+  const p = allProperties.find((x) => x.id === id) as Property | undefined;
+  if (!p) return { title: "Property not found – ClinVest" };
 
   return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: `/property/${prop.id}`,
-      siteName: "ClinTech-Estate",
-      type: "article",
-      images: [{ url: prop.image }],
-    },
+    title: `${p.title} – ClinVest`,
+    description: p.description ?? `View ${p.title} in ${p.location}.`,
+    openGraph: { images: [{ url: p.image }] },
   };
 }
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { id } = await params;
-  const prop = allProperties.find((p) => String(p.id) === String(id)) as
-    | Property
-    | undefined;
+  const p = allProperties.find((x) => x.id === id) as Property | undefined;
+  if (!p) notFound();
 
-  if (!prop) notFound();
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: p.title,
+    image: [p.image],
+    description: p.description,
+    brand: { "@type": "Brand", name: "ClinVest" },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "NGN",
+      price: p.price.match(/\d+/g)?.join("") ?? "0",
+      availability: "https://schema.org/InStock",
+      url: `https://clinvest.vercel.app/property/${p.id}`,
+    },
+  };
 
-  return <ClientPage property={prop} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      />
+      <ClientPage property={p} />
+    </>
+  );
 }

@@ -4,6 +4,7 @@ import CustomButton from "@/shared/CustomButton";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { track } from "./analytics";
 
 type Filters = {
   location: string;
@@ -90,6 +91,7 @@ export default function SelectionTab() {
         if (v) q.set(k, v);
       }
     );
+    track("search_submitted", { type: activeTab, ...filters });
     router.push(`/search?${q.toString()}`);
   };
 

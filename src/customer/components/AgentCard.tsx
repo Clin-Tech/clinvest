@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { track } from "./analytics";
 
 export type Property = {
   id: string;
@@ -70,13 +71,22 @@ const AgentCard: React.FC<AgentCardProps> = ({
           </span>
         </div>
 
-        <a
+        {/* <a
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md text-sm font-medium"
         >
           Message on WhatsApp
+        </a> */}
+        <a
+          href={`https://wa.me/2348030000000?text=${encodeURIComponent(`Hi, I'm interested in ${property.title} (${property.id}).`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("whatsapp_click", { id: property.id })}
+          className="..."
+        >
+          WhatsApp
         </a>
 
         <a

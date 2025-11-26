@@ -4,6 +4,7 @@ import Logo from "@/shared/Logo";
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import SavedNavButton from "@/customer/components/SavedNavButton";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,6 @@ const Header = () => {
   return (
     <header className="w-full bg-[#090040] py-3 text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4 lg:px-20">
-        {/* Mobile Hamburger */}
         <button
           className="lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
@@ -50,6 +50,7 @@ const Header = () => {
         </Link>
 
         <div className="hidden lg:flex items-center gap-6">
+          <SavedNavButton />
           <Link
             href="/"
             className="text-sm font-medium hover:text-[#A02AD7] transition"
@@ -62,7 +63,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Nav Dropdown */}
       {isOpen && (
         <div className="lg:hidden px-6 pb-4 flex flex-col gap-4 bg-[#090040]">
           {navLinks.map((link) => (
@@ -75,6 +75,7 @@ const Header = () => {
               {link.label}
             </Link>
           ))}
+          <SavedNavButton />
           <Link
             href="/login"
             className="text-sm font-medium hover:text-[#A02AD7]"
