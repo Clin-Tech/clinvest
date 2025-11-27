@@ -8,8 +8,8 @@ type SP = Record<string, string | string[] | undefined>;
 const schema = z.object({
   type: z.enum(["Rent", "Sale", "Shortlet", "Land"]).optional(),
   location: z.string().optional(),
-  bedroom: z.string().optional(), // e.g. "3 Bedroom" or "3"
-  minPrice: z.string().optional(), // formatted with ₦ and commas or plain
+  bedroom: z.string().optional(),
+  minPrice: z.string().optional(),
   maxPrice: z.string().optional(),
 });
 
@@ -55,7 +55,6 @@ export default async function Page({
 }) {
   const sp = await searchParams;
 
-  // flatten arrays -> first value
   const flat = Object.fromEntries(
     Object.entries(sp).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
   );
@@ -63,11 +62,9 @@ export default async function Page({
   const parsed = schema.safeParse(flat);
   const q = parsed.success ? parsed.data : {};
 
-  // filter on the server
   const items = (allProperties as readonly Property[]).filter((p) =>
     matches(p, q)
   );
 
-  // pass results to client for rendering only
   return <SearchClient items={items} />;
 }

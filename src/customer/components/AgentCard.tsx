@@ -28,10 +28,10 @@ const AgentCard: React.FC<AgentCardProps> = ({
     phone: "2348012345678",
   },
 }) => {
-  const waMessage = encodeURIComponent(
-    `Hi ${agent.name}, I'm interested in "${property.title}" (${property.id}). Is it still available?`
-  );
-  const waUrl = `https://wa.me/${agent.phone}?text=${waMessage}`;
+  // const waMessage = encodeURIComponent(
+  //   `Hi ${agent.name}, I'm interested in "${property.title}" (${property.id}). Is it still available?`
+  // );
+  // const waUrl = `https://wa.me/${agent.phone}?text=${waMessage}`;
 
   return (
     <aside className="rounded-xl border bg-white text-gray-900 p-4 shadow-sm">

@@ -7,11 +7,11 @@ import { Property } from "@/types/property";
 import { useSaved } from "@/hooks/useSaved";
 
 const PropertyCard = ({ property }: { property: Property }) => {
+  const { isSaved, toggle } = useSaved();
   if (!property) return null;
   const { title, location, price, bedrooms, bathrooms, toilets, id, image } =
     property;
 
-  const { isSaved, toggle } = useSaved();
   return (
     <Link href={`/property/${id}`}>
       <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer">
